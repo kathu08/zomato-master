@@ -29,6 +29,6 @@ zomato.listen(3000, () =>
   ConnectDB()
     .then(() => console.log("Server is running"))
     .catch(() =>
-      console.log("Server is running, but database connection failed ...")
+      console.log("Server is running but database connection failed ...")
     )
 );

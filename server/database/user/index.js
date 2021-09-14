@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
 const UserSchema = new mongoose.Schema(
   {
@@ -12,5 +13,22 @@ const UserSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+UserSchema.statics.findByEmailAndPhone = async (email, phoneNumber) => {
+  // check whether email exist
+  const checkUserByEmail = await UserModel.findOne({ email });
+  const checkUserByPhone = await UserModel.findOne({ phoneNumber });
+
+  if (checkUserByEmail || checkUserByPhone) {
+    throw new Error("User already exist");
+  }
+  return false;
+};
+
+UserSchema.pre("save", function (next) {
+  const user = this;
+
+  if(!user.isModified("password")) return next();
+});
 
 export const UserModel = mongoose.model("Users", UserSchema);
