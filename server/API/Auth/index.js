@@ -10,30 +10,20 @@ const Router = express.Router();
 
 /*
 Route     /signup
-Des       Signup with email and password
+Des       Register new user
 Params    none
 Access    Public
 Method    POST  
 */
 Router.post("/signup", async (req, res) => {
   try {
-    const { email, password, fullname, phoneNumber } = req.body.credentials;
-
-    await UserModel.findByEmailAndPhone(email, phoneNumber);
-
-    // hash password
-    const bcryptSalt = await bcrypt.genSalt(8);
-
-    const hashedPassword = await bcrypt.hash(password, bcryptSalt);
+    await UserModel.findByEmailAndPhone(req.body.credentials);
 
     // save to DB
-    await UserModel.create({
-      ...req.body.credentials,
-      password: hashedPassword,
-    });
+    const newUser = await UserModel.create(req.body.credentials);
 
     // generate JWT auth token
-    const token = jwt.sign({ user: { fullname, email } }, "ZomatoAPP");
+    const token = newUser.generateJwtToken();
 
     // return
     return res.status(200).json({ token, status: "success" });
