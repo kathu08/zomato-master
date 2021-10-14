@@ -20,7 +20,6 @@ import Image from "./API/Image";
 import Order from "./API/orders";
 import Reviews from "./API/reviews";
 import User from "./API/User";
-import Menu from "./API/menu";
 
 // Database connection
 import ConnectDB from "./database/connection";

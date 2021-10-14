@@ -15,9 +15,9 @@ const ReviewCard = () => {
               />
             </div>
             <div className="flex flex-col">
-              <h3 className="text-lg font-semibold">Pavan Kumar</h3>
+              <h3 className="text-lg font-semibold">Kathurshana Sivalingam</h3>
               <small className="text-gray-500">
-                5 Reviews &#8226; 3 Followers
+                5 Reviews &#8226; 10 Followers
               </small>
             </div>
           </div>
